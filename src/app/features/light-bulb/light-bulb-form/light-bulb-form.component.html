@@ -1,0 +1,62 @@
+<h3>Light Bulb Problem</h3>
+<ng-container *ngIf="formGroup$ | async as formGroup">
+  <form [formGroup]="formGroup"
+         #lightBulbForm
+         (submit)="submit(event$, formGroup)">
+    <div class="row"  layout-align="center center">
+      <div class="col-md">
+        <div class="input-group form-control-md">
+          <mat-form-field class="had-label">
+            <input type="number"
+                   matInput
+                   id="txtBoxLightBulbs"
+                   placeholder="Lightbulbs"
+                   formControlName="lightbulbs"
+                   required>
+            <mat-error *ngIf="formGroup.controls.lightbulbs.invalid">
+              Please Enter a whole number
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="input-group form-control-md">
+          <mat-form-field class="had-label">
+            <input type="number"
+                   matInput
+                   id="txtBoxPeople"
+                   placeholder="People"
+                   formControlName="people"
+                   required>
+            <mat-error *ngIf="formGroup.controls.people.invalid">
+              Please Enter a whole number
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md button-aligner">
+        <button mat-raised-button
+                type="submit"
+                color="primary"
+                [disabled]="formGroup?.invalid">
+          Go!
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-container>
+<ng-container *ngIf="lightbulbResult$ | async as lightbulbResult">
+  <ng-container *ngIf="lightbulbResult">
+    <h5>
+      Light Bulbs Turned On
+    </h5>
+    <h6>
+      For {{lightbulbResult.lightbulbs}} light bulbs and {{lightbulbResult.people}} people there are
+      {{lightbulbResult.lightsOn.length}} light bulbs on after everyone enters the room
+    </h6>
+    <span *ngFor="let light of lightbulbResult.lightsOn"
+          class="badge badge-pill badge-warning light-indicator">
+      {{light}}
+    </span>
+  </ng-container>
+</ng-container>
