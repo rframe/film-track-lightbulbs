@@ -55,6 +55,6 @@ export class LightBulbService {
 
     people.forEach(person => room.enter(person));
 
-    return new LightBulbResult(lightbulbsCount, peopleCount, room.lightBublsOn.map(x => x.id), room.lightBublsOff.map(x => x.id));
+    return new LightBulbResult(lightbulbsCount, peopleCount, room.lightBublsOn.map(x => x.id));
   }
 }
