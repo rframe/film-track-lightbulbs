@@ -49,7 +49,7 @@ describe('LightBulbFormComponent', () => {
   });
 
   describe('Form Group', () => {
-    const lightBulbResult = new LightBulbResult(100, 100, [1, 4, 9, 16, 25, 36, 49, 56, 81]);
+    const lightBulbResult = new LightBulbResult(100, 100, [1, 4, 9, 16, 25, 36, 49, 56, 81, 100]);
     beforeEach(() => {
       mocks.route.data = observableOf({
         lightBulbResult
@@ -77,6 +77,15 @@ describe('LightBulbFormComponent', () => {
 
       expect(+lighbulbsInput.nativeElement.value).toEqual(lightBulbResult.lightbulbs);
       expect(+peopleInput.nativeElement.value).toEqual(lightBulbResult.people);
+    });
+
+    it('should put the badges on the page', () => {
+      const header6 = fixture.debugElement.query(By.css('h6'));
+      expect(header6.nativeElement.innerText.trim())
+        .toEqual(`For ${lightBulbResult.lightbulbs} light bulbs and ${lightBulbResult.people}` +
+          ` people there are ${lightBulbResult.lightsOn.length} light bulbs on after everyone enters the room`)
+      const badges = fixture.debugElement.queryAll(By.css('.light-indicator'));
+      expect(badges.map(x => +x.nativeElement.innerText.trim())).toEqual(lightBulbResult.lightsOn);
     });
   });
 
