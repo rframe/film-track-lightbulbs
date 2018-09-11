@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/internal/operators';
-import { ActivatedRoute, NavigationExtras, ParamMap, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Data } from '@angular/router/src/config';
 import { LightBulbResult } from '../../../models/classes/light-bulb-result';
 
@@ -13,6 +13,7 @@ import { LightBulbResult } from '../../../models/classes/light-bulb-result';
 })
 export class LightBulbFormComponent implements OnInit {
 
+  @ViewChild('lightBulbForm') lightBulbForm: ElementRef;
   formGroup$: Observable<FormGroup>;
   lightbulbResult$: Observable<LightBulbResult>;
 
@@ -35,7 +36,6 @@ export class LightBulbFormComponent implements OnInit {
   buildForm() {
     this.lightbulbResult$ = this._route.data.pipe(
       map((data: Data) => {
-        console.log(data);
         return data.lightBulbResult as LightBulbResult;
       })
     );
@@ -54,6 +54,11 @@ export class LightBulbFormComponent implements OnInit {
     );
   }
 
+  /**
+   * Submit form, and navigate to the result page
+   * @param {Event} event
+   * @param {FormGroup} formGroup
+   */
   submit(event: Event, formGroup: FormGroup) {
     if (formGroup.valid) {
       const values = formGroup.value;

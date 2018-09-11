@@ -2,7 +2,7 @@
 <ng-container *ngIf="formGroup$ | async as formGroup">
   <form [formGroup]="formGroup"
          #lightBulbForm
-         (submit)="submit(event$, formGroup)">
+         (submit)="submit($event, formGroup)">
     <div class="row"  layout-align="center center">
       <div class="col-md">
         <div class="input-group form-control-md">
